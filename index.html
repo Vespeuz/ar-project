@@ -114,7 +114,7 @@
     </script>
   </head>
   <body>
-    <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/rm-izz/ar-project@main/src/targets/targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" shadow="type: pcf; autoUpdate: true">
+    <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/rm-izz/ar-project@main/src/targets/targets.mind; filterMinCF:0.1; filterBeta: 10" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" shadow="type: pcf; autoUpdate: true" >
       <a-assets>
         <img id="card" src="https://cdn.jsdelivr.net/gh/rm-izz/ar-project@main/src/images/images.png" crossorigin="anonymous"/>
         <a-asset-item id="avatarModel" src="https://cdn.jsdelivr.net/gh/rm-izz/ar-project@main/src/models/sjw.glb"></a-asset-item>
