@@ -11,7 +11,6 @@
       AFRAME.registerComponent('target-animation-control', {
         init: function() {
           const model = this.el.querySelector('[animation-mixer]');
-          const soundEntity = this.el.querySelector('[sound]');
           
           if (!model) {
             console.error('Animation model not found');
@@ -38,10 +37,6 @@
                 }
               }
               
-              // Play background music when target is found
-              if (soundEntity && soundEntity.components.sound) {
-                soundEntity.components.sound.playSound();
-              }
             } catch (error) {
               console.error('Error playing animation:', error);
             }
@@ -56,10 +51,6 @@
                 mixer.mixer.stopAllAction();
               }
               
-              // Stop background music when target is lost
-              if (soundEntity && soundEntity.components.sound) {
-                soundEntity.components.sound.stopSound();
-              }
             } catch (error) {
               console.error('Error stopping animation:', error);
             }
@@ -74,11 +65,6 @@
         if (facebookButton) {
           facebookButton.addEventListener('click', () => {
             console.log('Facebook button clicked');
-            // Play click sound
-            const clickSound = document.querySelector('#click-sound');
-            if (clickSound && clickSound.components.sound) {
-              clickSound.components.sound.playSound();
-            }
             window.open('https://www.facebook.com/bpstsb', '_blank');
           });
         }
@@ -88,11 +74,6 @@
         if (instagramButton) {
           instagramButton.addEventListener('click', () => {
             console.log('Instagram button clicked');
-            // Play click sound
-            const clickSound = document.querySelector('#click-sound');
-            if (clickSound && clickSound.components.sound) {
-              clickSound.components.sound.playSound();
-            }
             window.open('https://www.instagram.com/bpstsb', '_blank');
           });
         }
@@ -102,11 +83,6 @@
         if (whatsappButton) {
           whatsappButton.addEventListener('click', () => {
             console.log('WhatsApp button clicked');
-            // Play click sound
-            const clickSound = document.querySelector('#click-sound');
-            if (clickSound && clickSound.components.sound) {
-              clickSound.components.sound.playSound();
-            }
             window.open('https://wa.me/+6737121284', '_blank');
           });
         }
@@ -114,19 +90,16 @@
     </script>
   </head>
   <body>
-    <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/rm-izz/ar-project@main/src/targets/targets.mind; filterMinCF:0.1; filterBeta: 10" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" shadow="type: pcf; autoUpdate: true" >
+    <a-scene mindar-image="imageTargetSrc: src/targets/targets.mind; filterMinCF:0.1; filterBeta: 10" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" shadow="type: pcf; autoUpdate: true" >
       <a-assets>
-        <img id="card" src="https://cdn.jsdelivr.net/gh/rm-izz/ar-project@main/src/images/images.png" crossorigin="anonymous"/>
-        <a-asset-item id="avatarModel" src="https://cdn.jsdelivr.net/gh/rm-izz/ar-project@main/src/models/sjw.glb"></a-asset-item>
+        <img id="card" src="src/images/images.png" crossorigin="anonymous"/>
+        <a-asset-item id="avatarModel" src="src/models/sjw.glb"></a-asset-item>
         
         <!-- 3D Icon Models -->
         <a-asset-item id="facebookIcon" src="https://cdn.jsdelivr.net/gh/rm-izz/ar-project@main/src/models/facebook-icon.glb"></a-asset-item>
         <a-asset-item id="instagramIcon" src="https://cdn.jsdelivr.net/gh/rm-izz/ar-project@main/src/models/instagram-icon.glb"></a-asset-item>
         <a-asset-item id="whatsappIcon" src="https://cdn.jsdelivr.net/gh/rm-izz/ar-project@main/src/models/whatsapp-icon.glb"></a-asset-item>
         
-        <!-- Audio Files -->
-        <audio id="backgroundMusic" src="https://cdn.jsdelivr.net/gh/rm-izz/ar-project@main/src/audio/background.mp3" preload="auto" crossorigin="anonymous"></audio>
-        <audio id="clickSound" src="https://cdn.jsdelivr.net/gh/rm-izz/ar-project@main/src/audio/click.mp3" preload="auto" crossorigin="anonymous"></audio>
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable"></a-camera>
@@ -136,12 +109,6 @@
       <a-entity light="type: directional; color: #FFF; intensity: 4; castShadow: true; shadowMapHeight: 1024; shadowMapWidth: 1024" position="-1 1 1"></a-entity>
       
       <a-entity mindar-image-target="targetIndex: 0" target-animation-control>
-        <!-- Background Music (plays when target is found) -->
-        <a-entity 
-          sound="src: #backgroundMusic; loop: true; volume: 0.5; positional: false"
-          position="0 0 0">
-        </a-entity>
-        
         <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0" material="shader: flat" shadow="receive: false"></a-plane>
         <a-gltf-model src="#avatarModel" rotation="90 0 0" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer="loop: once; clampWhenFinished: true;" shadow="cast: true; receive: true"></a-gltf-model>
         
@@ -180,13 +147,6 @@
           material="shader: flat"
           shadow="cast: false; receive: false">
         </a-gltf-model>
-      </a-entity>
-      
-      <!-- Click Sound (plays when buttons are clicked) -->
-      <a-entity 
-        id="click-sound"
-        sound="src: #clickSound; volume: 0.8; positional: false"
-        position="0 0 0">
       </a-entity>
     </a-scene>
   </body>
